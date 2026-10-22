@@ -5,12 +5,13 @@ import TrustBar from '@/components/modules/home/TrustBar';
 import FeaturedCategories from '@/components/modules/home/FeaturedCategories';
 import FlashSale from '@/components/modules/home/FlashSale';
 import PromoBanners from '@/components/modules/home/PromoBanners';
-import TrendingProducts from '@/components/modules/home/TrendingProducts';
+import BestSellers from '@/components/modules/home/BestSellers';
+import NewArrivals from '@/components/modules/home/NewArrivals';
 
 export default function HomePage() {
   return (
     <div className="max-w-[1536px] mx-auto px-4 sm:px-8 py-6">
-      {/* ১. ব্যালান্সড ১২-কলাম গ্রিড: ৮ কলাম হিরো ব্যানার + ৪ কলাম ভেরিফায়েড ভেন্ডর কার্ড */}
+      {/* ১. হিরো ব্যানার (৮ কলাম) + ভেন্ডর কার্ড (৪ কলাম) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <div className="lg:col-span-8 flex flex-col">
           <HeroSlider />
@@ -27,11 +28,17 @@ export default function HomePage() {
       {/* ৩. Featured Categories Slider */}
       <FeaturedCategories />
 
+      {/* ৪. ⚡ Flash Sale Deals (Limited Time Deals) */}
       <FlashSale />
 
-      <PromoBanners/>
+      {/* ৫. 🎯 Dual Promotional Banners */}
+      <PromoBanners />
 
-      <TrendingProducts/>
+      {/* ৬. 🏆 Best Sellers (Social Proof & Top Rated) */}
+      <BestSellers />
+
+      {/* ৭. ✨ New Arrivals (Fresh Drops) */}
+      <NewArrivals />
     </div>
   );
 }
