@@ -1,7 +1,7 @@
 // src/components/shared/Navbar.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -17,12 +17,20 @@ import {
   User
 } from 'lucide-react';
 import { useCategories } from '@/hooks/useCatalog';
+import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
+  const { totalCount, openCart } = useCart();
   const pathname = usePathname();
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: categories } = useCategories();
+
+  // 🌟 Hydration mismatch ১০০% দূর করার জন্য মাউন্ট চেক
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -33,16 +41,21 @@ export default function Navbar() {
     { name: 'Flash Sale', href: '/flash-sale' },
   ];
 
+  // কার্ট ক্লিক হ্যান্ডলার (ড্রয়ার খুলবে এবং লিঙ্ক বাইপাস করবে)
+  const handleCartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openCart();
+  };
+
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
-      {/* ১. মেইন নেভিগেশন বার: ডেক্সটপে ৩-কলাম (লোগো | সার্চবার | উইশলিস্ট ও কার্ট) */}
+      {/* ১. মেইন নেভিগেশন বার */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-8 py-3.5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6">
           
           {/* বাঁ পাশ: মোবাইল মেনু বাটন এবং লোগো */}
           <div className="flex items-center justify-between md:justify-start gap-3 shrink-0">
             <div className="flex items-center gap-3">
-              {/* মোবাইল ড্রয়ার টগল */}
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition"
@@ -51,7 +64,6 @@ export default function Navbar() {
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
 
-              {/* ব্র্যান্ড লোগো */}
               <Link href="/" className="flex items-center gap-2.5 group shrink-0">
                 <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-200 group-hover:scale-105 transition">
                   <ShoppingBag className="w-5 h-5" />
@@ -76,23 +88,31 @@ export default function Navbar() {
                 </span>
               </Link>
 
-              <Link href="/cart" className="relative p-1 text-slate-700 hover:text-emerald-600 transition">
+              {/* 🌟 মোবাইলে কার্ট লিংক: সার্ভার ও ক্লায়েন্ট উভয়েই <a> ট্যাগ থাকায় কোনো এরর হবে না */}
+              <Link 
+                href="/cart" 
+                onClick={handleCartClick}
+                aria-label="Shopping Cart"
+                className="relative p-1 text-slate-700 hover:text-emerald-600 transition cursor-pointer"
+              >
                 <ShoppingCart className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                  0
-                </span>
+                {mounted && totalCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    {totalCount}
+                  </span>
+                )}
               </Link>
             </div>
           </div>
 
-          {/* 🌟 মাঝখান: সেন্ট্রালাইজড ওয়াইড সার্চবার (ডেক্সটপে একদম মাঝখানে ব্যালান্সড) */}
+          {/* মাঝখানের সার্চবার */}
           <div className="w-full md:flex-1 max-w-2xl mx-auto">
             <div className="flex items-center w-full bg-slate-50 hover:bg-slate-100/70 focus-within:bg-white border-2 border-emerald-600 rounded-full overflow-hidden shadow-xs transition">
               <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 ml-4 shrink-0" />
               <input
                 type="text"
                 placeholder="Search for products, brands, stores and categories..."
-                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-800 placeholder-slate-400 bg-transparent focus:outline-hidden"
               />
               <button className="self-stretch bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 sm:px-8 flex items-center justify-center transition shrink-0">
                 <span>Search</span>
@@ -100,7 +120,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* 💻 ডেক্সটপ ডান পাশ: উইশলিস্ট, কার্ট এবং অ্যাকাউন্ট */}
+          {/* ডেক্সটপ ডান পাশ: উইশলিস্ট, কার্ট এবং অ্যাকাউন্ট */}
           <div className="hidden md:flex items-center gap-6 shrink-0">
             <Link href="/wishlist" className="flex items-center gap-2 text-slate-700 hover:text-emerald-600 transition group">
               <div className="relative">
@@ -112,12 +132,19 @@ export default function Navbar() {
               <span className="text-xs font-bold text-slate-700 group-hover:text-emerald-600">Wishlist</span>
             </Link>
 
-            <Link href="/cart" className="flex items-center gap-2 text-slate-700 hover:text-emerald-600 transition group">
+            {/* 🌟 ডেক্সটপ কার্ট লিংক */}
+            <Link 
+              href="/cart" 
+              onClick={handleCartClick}
+              className="flex items-center gap-2 text-slate-700 hover:text-emerald-600 transition group cursor-pointer"
+            >
               <div className="relative">
                 <ShoppingCart className="w-6 h-6 group-hover:scale-110 transition" />
-                <span className="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-xs">
-                  0
-                </span>
+                {mounted && totalCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-xs">
+                    {totalCount}
+                  </span>
+                )}
               </div>
               <span className="text-xs font-bold text-slate-700 group-hover:text-emerald-600">Cart</span>
             </Link>
@@ -138,7 +165,6 @@ export default function Navbar() {
       <div className="border-t border-slate-100 bg-white hidden md:block">
         <div className="max-w-[1536px] mx-auto px-4 sm:px-8 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            {/* ডেক্সটপ ক্যাটাগরি ড্রপডাউন */}
             <div className="relative">
               <button
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
@@ -170,7 +196,6 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* হরিজন্টাল লিংকস */}
             <nav className="flex items-center gap-7">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -198,7 +223,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ৩. 📱 মোবাইল ড্রয়ার মেনু (Hamburger Drawer) */}
+      {/* ৩. মোবাইল ড্রয়ার মেনু */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white px-4 py-5 space-y-4 shadow-xl">
           <div className="space-y-1">
