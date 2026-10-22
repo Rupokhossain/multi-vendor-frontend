@@ -1,15 +1,30 @@
 // src/app/(storefront)/page.tsx
+import CategorySidebar from '@/components/modules/home/CategorySidebar';
+import HeroSlider from '@/components/modules/home/HeroSlider';
+import FeaturedVendors from '@/components/modules/home/FeaturedVendors';
+import CategoryPills from '@/components/modules/home/CategoryPills';
+
 export default function HomePage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="bg-white rounded-2xl p-10 border border-slate-200 text-center shadow-sm">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2">
-          Welcome to Shop<span className="text-emerald-600">Nest</span> Marketplace
-        </h1>
-        <p className="text-slate-500 text-sm max-w-xl mx-auto">
-          Our Global Header, Dynamic Category Menu, and Footer are now fully live and connected with our Express backend!
-        </p>
+    // max-w-[1536px] দিয়ে দুই পাশের অপ্রয়োজনীয় গ্যাপ কমানো হয়েছে
+    <div className="max-w-[1536px] mx-auto px-4 sm:px-8 py-6">
+      {/* ১. হিরো সেকশন গ্রিড */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="hidden lg:block lg:col-span-3">
+          <CategorySidebar />
+        </div>
+
+        <div className="lg:col-span-6">
+          <HeroSlider />
+        </div>
+
+        <div className="lg:col-span-3">
+          <FeaturedVendors />
+        </div>
       </div>
+
+      {/* ২. ক্যাটাগরি ছবি পিলস */}
+      <CategoryPills />
     </div>
   );
 }

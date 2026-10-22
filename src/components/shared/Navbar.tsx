@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
       {/* ১. মাঝের সার্চ ও লোগো বার */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 py-4">
         <div className="flex items-center justify-between gap-6">
           {/* লোগো */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">

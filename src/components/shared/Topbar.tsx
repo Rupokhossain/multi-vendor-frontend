@@ -5,7 +5,7 @@ import { Truck, Headphones, User, Store, MapPin } from 'lucide-react';
 export default function Topbar() {
   return (
     <div className="bg-slate-100 border-b border-slate-200 text-xs text-slate-600 py-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
         {/* বামপাশে ফ্রি শিপিং মেসেজ */}
         <div className="flex items-center gap-2 font-medium text-slate-700">
           <Truck className="w-4 h-4 text-emerald-600" />
