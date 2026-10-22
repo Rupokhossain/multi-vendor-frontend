@@ -177,13 +177,16 @@ export default function FlashSale() {
               <div>
                 {/* ইমেজ কন্টেইনার + ডিসকাউন্ট ব্যাজ + উইশলিস্ট বাটন */}
                 <div className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-white border border-slate-100">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {/* 🌟 ক্লিকেবল ইমেজ */}
+                  <Link href={`/products/${item.slug}`} className="block w-full h-full">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </Link>
 
-                  <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-rose-600 text-white font-black text-[9px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg shadow-xs">
+                  <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-rose-600 text-white font-black text-[9px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg shadow-xs pointer-events-none">
                     {item.discount}
                   </span>
 
@@ -203,10 +206,12 @@ export default function FlashSale() {
                   )}
                 </div>
 
-                {/* প্রোডাক্ট টাইটেল: min-height থাকায় সব কার্ডের উচ্চতা হুবহু সমান থাকবে */}
-                <h3 className="text-xs sm:text-sm font-bold text-slate-900 mt-1 line-clamp-2 min-h-[32px] sm:min-h-[40px] group-hover:text-emerald-700 transition leading-snug">
-                  {item.name}
-                </h3>
+                {/* 🌟 ক্লিকেবল প্রোডাক্ট টাইটেল */}
+                <Link href={`/products/${item.slug}`} className="block">
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 mt-1 line-clamp-2 min-h-[32px] sm:min-h-[40px] group-hover:text-emerald-700 transition leading-snug">
+                    {item.name}
+                  </h3>
+                </Link>
 
                 {/* রেটিং */}
                 <div className="flex items-center gap-1 mt-1 text-[11px] sm:text-xs">

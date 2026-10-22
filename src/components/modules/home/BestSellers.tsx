@@ -16,6 +16,7 @@ const bestSellingProducts = [
   {
     id: 'bs-1',
     name: 'Apple AirPods Pro (2nd Gen) with MagSafe Case',
+    slug: 'apple-airpods-pro-2',
     category: 'electronics',
     price: 26500,
     originalPrice: 29500,
@@ -28,6 +29,7 @@ const bestSellingProducts = [
   {
     id: 'bs-2',
     name: 'Nike Air Jordan 1 Retro High OG Chicago',
+    slug: 'nike-air-jordan-1-chicago',
     category: 'footwear',
     price: 14200,
     originalPrice: 16500,
@@ -40,6 +42,7 @@ const bestSellingProducts = [
   {
     id: 'bs-3',
     name: 'Logitech MX Master 3S Wireless Performance Mouse',
+    slug: 'logitech-mx-master-3s',
     category: 'electronics',
     price: 11800,
     originalPrice: 13500,
@@ -52,6 +55,7 @@ const bestSellingProducts = [
   {
     id: 'bs-4',
     name: 'Handcrafted Vintage Canvas Travel Duffel Bag',
+    slug: 'vintage-canvas-travel-duffel',
     category: 'fashion',
     price: 3800,
     originalPrice: 4800,
@@ -64,6 +68,7 @@ const bestSellingProducts = [
   {
     id: 'bs-5',
     name: 'Samsung Galaxy Watch 6 Classic 47mm LTE',
+    slug: 'samsung-galaxy-watch-6',
     category: 'electronics',
     price: 28900,
     originalPrice: 32000,
@@ -76,6 +81,7 @@ const bestSellingProducts = [
   {
     id: 'bs-6',
     name: 'Premium Slim-Fit Formal Oxford Cotton Shirt',
+    slug: 'slim-fit-oxford-cotton-shirt',
     category: 'fashion',
     price: 2450,
     originalPrice: 3200,
@@ -88,6 +94,7 @@ const bestSellingProducts = [
   {
     id: 'bs-7',
     name: 'Sony SRS-XB100 Compact Wireless Bluetooth Speaker',
+    slug: 'sony-srs-xb100-speaker',
     category: 'electronics',
     price: 6400,
     originalPrice: 7500,
@@ -100,6 +107,7 @@ const bestSellingProducts = [
   {
     id: 'bs-8',
     name: 'Handmade Genuine Leather Bifold RFID Wallet',
+    slug: 'leather-bifold-rfid-wallet',
     category: 'fashion',
     price: 1650,
     originalPrice: 2200,
@@ -162,14 +170,17 @@ export default function BestSellers() {
             <div>
               {/* ইমেজ ও ব্যাজ */}
               <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+                {/* 🌟 ক্লিকেবল ইমেজ */}
+                <Link href={`/products/${product.slug}`} className="block w-full h-full">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
 
                 {/* টপ সেলার ব্যাজ */}
-                <span className="absolute top-2 left-2 bg-amber-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-md shadow-xs">
+                <span className="absolute top-2 left-2 bg-amber-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-md shadow-xs pointer-events-none">
                   {product.soldCount}
                 </span>
 
@@ -188,10 +199,12 @@ export default function BestSellers() {
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               </div>
 
-              {/* প্রোডাক্ট টাইটেল: বড় ফন্ট ও সমান হাইট */}
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 line-clamp-2 min-h-[40px] sm:min-h-[48px] leading-snug">
-                {product.name}
-              </h3>
+              {/* 🌟 ক্লিকেবল প্রোডাক্ট টাইটেল: বড় ফন্ট ও সমান হাইট */}
+              <Link href={`/products/${product.slug}`} className="block">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 line-clamp-2 min-h-[40px] sm:min-h-[48px] leading-snug hover:text-emerald-700 transition">
+                  {product.name}
+                </h3>
+              </Link>
 
               {/* রেটিং */}
               <div className="flex items-center gap-1.5 mt-2 text-xs sm:text-sm">

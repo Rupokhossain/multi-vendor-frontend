@@ -9,6 +9,7 @@ const newArrivalProducts = [
   {
     id: 'na-1',
     name: 'Nothing Ear (2) Transparent Wireless Hi-Res Earbuds',
+    slug: 'nothing-ear-2-earbuds',
     price: 14500,
     store: 'Gadget Nation BD',
     tag: 'NEW IN',
@@ -17,6 +18,7 @@ const newArrivalProducts = [
   {
     id: 'na-2',
     name: 'Minimalist Japanese Linen Blend Casual Blazer',
+    slug: 'japanese-linen-blazer',
     price: 5200,
     store: 'Urban Sartorial BD',
     tag: 'JUST DROPPED',
@@ -25,6 +27,7 @@ const newArrivalProducts = [
   {
     id: 'na-3',
     name: 'Keychron K2 Pro QMK Wireless Mechanical Keyboard',
+    slug: 'keychron-k2-pro-keyboard',
     price: 9800,
     store: 'TechZone BD',
     tag: 'NEW IN',
@@ -33,6 +36,7 @@ const newArrivalProducts = [
   {
     id: 'na-4',
     name: 'Handcrafted Vegetable-Tanned Leather Messenger Bag',
+    slug: 'leather-messenger-bag',
     price: 4900,
     store: 'Apex Footwear BD',
     tag: '2026 EDITION',
@@ -73,13 +77,16 @@ export default function NewArrivals() {
             <div>
               {/* ইমেজ ও NEW IN ব্যাজ */}
               <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+                {/* 🌟 ক্লিকেবল ইমেজ */}
+                <Link href={`/products/${product.slug}`} className="block w-full h-full">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
 
-                <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-md flex items-center gap-1">
+                <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-md flex items-center gap-1 pointer-events-none">
                   <Sparkles className="w-3 h-3 text-emerald-400" />
                   <span>{product.tag}</span>
                 </span>
@@ -98,10 +105,12 @@ export default function NewArrivals() {
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               </div>
 
-              {/* প্রডাক্ট নাম */}
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 line-clamp-2 min-h-[40px] sm:min-h-[48px] leading-snug">
-                {product.name}
-              </h3>
+              {/* 🌟 ক্লিকেবল প্রডাক্ট নাম */}
+              <Link href={`/products/${product.slug}`} className="block">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 line-clamp-2 min-h-[40px] sm:min-h-[48px] leading-snug hover:text-emerald-700 transition">
+                  {product.name}
+                </h3>
+              </Link>
 
               {/* প্রডাক্ট প্রাইস */}
               <div className="mt-2">
