@@ -5,6 +5,7 @@ import TrustBar from '@/components/modules/home/TrustBar';
 import FeaturedCategories from '@/components/modules/home/FeaturedCategories';
 import FlashSale from '@/components/modules/home/FlashSale';
 import PromoBanners from '@/components/modules/home/PromoBanners';
+import TrendingProducts from '@/components/modules/home/TrendingProducts';
 
 export default function HomePage() {
   return (
@@ -29,6 +30,8 @@ export default function HomePage() {
       <FlashSale />
 
       <PromoBanners/>
+
+      <TrendingProducts/>
     </div>
   );
 }
