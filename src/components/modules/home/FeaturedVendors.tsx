@@ -1,56 +1,72 @@
 // src/components/modules/home/FeaturedVendors.tsx
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
-import { Star, ShieldCheck, Truck, Headphones, CheckCircle2 } from 'lucide-react';
+import { Star, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useFeaturedStores } from '@/hooks/useCatalog';
 
-// ডিফল্ট ডামি ডাটা যদি ব্যাকএন্ডের স্টোর লিস্ট এখনো ফেচ না হয়
 const defaultVendors = [
-  { id: '1', name: 'Apex Footwear', tag: 'Official Store', rating: 4.9, reviews: '14.2k', initials: 'AF', color: 'bg-indigo-600' },
-  { id: '2', name: 'TechZone BD', tag: 'Top Rated Seller', rating: 4.8, reviews: '12.4k', initials: 'TZ', color: 'bg-blue-600' },
-  { id: '3', name: 'Fashion Hub', tag: 'Verified Seller', rating: 4.7, reviews: '8.1k', initials: 'FH', color: 'bg-rose-600' },
-  { id: '4', name: 'FreshMart', tag: 'Verified Seller', rating: 4.6, reviews: '5.1k', initials: 'FM', color: 'bg-emerald-600' },
+  { id: '1', name: 'Apex Footwear BD', tag: 'Official Store', rating: 4.9, products: '350+ Products', initials: 'AF', color: 'bg-indigo-600' },
+  { id: '2', name: 'TechZone Electronics', tag: 'Top Rated Seller', rating: 4.8, products: '280+ Products', initials: 'TZ', color: 'bg-blue-600' },
+  { id: '3', name: 'Fashion Hub Lifestyle', tag: 'Verified Seller', rating: 4.7, products: '190+ Products', initials: 'FH', color: 'bg-rose-600' },
+  { id: '4', name: 'FreshMart Super Store', tag: 'Verified Seller', rating: 4.6, products: '500+ Products', initials: 'FM', color: 'bg-emerald-600' },
+  { id: '5', name: 'HomeStyle Decor BD', tag: 'Top Rated Seller', rating: 4.7, products: '220+ Products', initials: 'HS', color: 'bg-amber-600' },
 ];
 
 export default function FeaturedVendors() {
   const { data: stores } = useFeaturedStores();
 
   return (
-    <div className="space-y-4">
-      {/* ১. ভেন্ডার লিস্ট কার্ড */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
-          <h3 className="font-extrabold text-slate-900 text-sm">Featured Vendors</h3>
-          <Link href="/vendors" className="text-xs font-bold text-emerald-600 hover:underline">
-            View All →
+    <div className="bg-white rounded-3xl border border-slate-200 shadow-xs p-5 sm:p-6 h-full min-h-[460px] sm:min-h-[480px] lg:h-[490px] flex flex-col justify-between">
+      <div>
+        {/* হেডার */}
+        <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 mb-3.5">
+          <div>
+            <h3 className="font-black text-slate-900 text-lg sm:text-xl tracking-tight">Featured Vendors</h3>
+            <p className="text-xs sm:text-sm text-slate-400 font-medium mt-0.5">Top trusted marketplace stores</p>
+          </div>
+          <Link 
+            href="/vendors" 
+            className="text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline flex items-center gap-1 shrink-0"
+          >
+            <span>View All</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="space-y-3">
+        {/* ভেন্ডর তালিকা: স্পেস ও টাইপোগ্রাফি ব্যালান্সড, কোনো বিশ্রী কাট-অফ নেই */}
+        <div className="space-y-2.5">
           {defaultVendors.map((vendor) => (
-            <div key={vendor.id} className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className={`w-9 h-9 rounded-xl ${vendor.color} text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm`}>
+            <div 
+              key={vendor.id} 
+              className="flex items-center justify-between gap-3 p-2.5 rounded-2xl hover:bg-slate-50 transition border border-transparent hover:border-slate-100 group"
+            >
+              {/* অ্যাভাটার ও স্টোর ইনফো */}
+              <div className="flex items-center gap-3 min-w-0">
+                <div className={`w-11 h-11 rounded-2xl ${vendor.color} text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition`}>
                   {vendor.initials}
                 </div>
+                
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1">
-                    <h4 className="text-xs font-bold text-slate-800 truncate">{vendor.name}</h4>
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                  <div className="flex items-center gap-1.5">
+                    <h4 className="text-sm font-bold text-slate-800 line-clamp-1">{vendor.name}</h4>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                    <span className="flex items-center gap-0.5 text-amber-500 font-semibold">
-                      <Star className="w-2.5 h-2.5 fill-amber-500" /> {vendor.rating}
+                  <div className="flex items-center gap-2 text-xs text-slate-500 font-medium mt-0.5">
+                    <span className="flex items-center gap-1 text-amber-500 font-bold">
+                      <Star className="w-3.5 h-3.5 fill-amber-500" /> {vendor.rating}
                     </span>
-                    <span>({vendor.reviews})</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-slate-400">{vendor.products}</span>
                   </div>
                 </div>
               </div>
 
+              {/* ফলো বাটন */}
               <Link
-                href={`/vendors`}
-                className="px-3 py-1 rounded-lg border border-slate-200 hover:border-emerald-600 hover:bg-emerald-50 text-[11px] font-bold text-slate-600 hover:text-emerald-700 transition shrink-0"
+                href="/vendors"
+                className="px-3.5 py-1.5 rounded-xl border border-slate-200 hover:border-emerald-600 bg-slate-50 hover:bg-emerald-50 text-xs font-bold text-slate-700 hover:text-emerald-700 transition shrink-0 shadow-xs"
               >
                 Follow
               </Link>
@@ -59,21 +75,15 @@ export default function FeaturedVendors() {
         </div>
       </div>
 
-      {/* ২. ছোট ট্রাস্ট ব্যাজ বক্স */}
-      <div className="bg-emerald-50/60 rounded-2xl border border-emerald-100 p-4 space-y-2.5">
-        <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>100% Secure Payment with SSLCommerz</span>
-        </div>
-        <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-          <Truck className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>Steadfast Fast & Reliable Delivery</span>
-        </div>
-        <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-          <Headphones className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>24/7 Dedicated Customer Support</span>
-        </div>
-      </div>
+      {/* সেলার অনবোর্ডিং ফুটার কলআউট */}
+      {/* <div className="pt-3 border-t border-slate-100 mt-2 text-center">
+        <Link 
+          href="/vendor/register" 
+          className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-50/80 hover:bg-emerald-100 transition"
+        >
+          <span>Become a Seller & Grow Your Business 🚀</span>
+        </Link>
+      </div> */}
     </div>
   );
 }

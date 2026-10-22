@@ -1,3 +1,5 @@
+"use client"
+
 // src/components/shared/Footer.tsx
 import Link from 'next/link';
 import { Truck, RotateCcw, ShieldCheck, Headphones, ShoppingBag } from 'lucide-react';
@@ -64,9 +66,9 @@ export default function Footer() {
           <p className="text-xs text-slate-400 leading-relaxed max-w-sm mb-4">
             ShopNest is a multi-vendor marketplace bringing you the best products from trusted sellers across Bangladesh with live courier tracking.
           </p>
-          <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} ShopNest Marketplace Ltd. All rights reserved.
-          </p>
+<p className="text-xs text-slate-500">
+  © 2026 ShopNest Marketplace Ltd. All rights reserved.
+</p>
         </div>
 
         <div>

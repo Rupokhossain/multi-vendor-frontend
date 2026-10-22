@@ -1,30 +1,31 @@
 // src/app/(storefront)/page.tsx
-import CategorySidebar from '@/components/modules/home/CategorySidebar';
 import HeroSlider from '@/components/modules/home/HeroSlider';
 import FeaturedVendors from '@/components/modules/home/FeaturedVendors';
-import CategoryPills from '@/components/modules/home/CategoryPills';
+import TrustBar from '@/components/modules/home/TrustBar';
+import FeaturedCategories from '@/components/modules/home/FeaturedCategories';
+import FlashSale from '@/components/modules/home/FlashSale';
 
 export default function HomePage() {
   return (
-    // max-w-[1536px] দিয়ে দুই পাশের অপ্রয়োজনীয় গ্যাপ কমানো হয়েছে
     <div className="max-w-[1536px] mx-auto px-4 sm:px-8 py-6">
-      {/* ১. হিরো সেকশন গ্রিড */}
+      {/* ১. ব্যালান্সড ১২-কলাম গ্রিড: ৮ কলাম হিরো ব্যানার + ৪ কলাম ভেরিফায়েড ভেন্ডর কার্ড */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="hidden lg:block lg:col-span-3">
-          <CategorySidebar />
-        </div>
-
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-8 flex flex-col">
           <HeroSlider />
         </div>
 
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-4 flex flex-col">
           <FeaturedVendors />
         </div>
       </div>
 
-      {/* ২. ক্যাটাগরি ছবি পিলস */}
-      <CategoryPills />
+      {/* ২. Trust Benefits Bar */}
+      <TrustBar />
+
+      {/* ৩. Featured Categories Slider */}
+      <FeaturedCategories />
+
+      <FlashSale />
     </div>
   );
 }
